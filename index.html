@@ -20,7 +20,7 @@
 
     <script>
         async function loadCSV() {
-            const response = await fetch("your-list.csv"); // Replace with actual CSV file path
+            const response = await fetch("Gorson (2).csv"); // Replace with actual CSV file path
             const data = await response.text();
             const rows = data.split("\n").map(row => row.split(","));
             
