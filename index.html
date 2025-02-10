@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My DPLA Collection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .item { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 20px; }
+        .item img { width: 150px; height: auto; margin-bottom: 10px; border-radius: 5px; }
+        .item div { max-width: 600px; }
+        a { text-decoration: none; color: blue; font-weight: bold; }
+        .info { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>My DPLA Collection</h1>
+    <div id="content">Loading...</div>
+
+    <script>
+        async function loadCSV() {
+            const response = await fetch("your-list.csv"); // Replace with actual CSV file path
+            const data = await response.text();
+            const rows = data.split("\n").map(row => row.split(","));
+            
+            let content = "";
+            rows.slice(1).forEach(row => {
+                const [title, creator, description, thumbnail, url] = row;
+
+                // Use the thumbnail URL directly
+                let imageSrc = thumbnail; // Direct thumbnail URL from CSV
+
+                content += `
+                    <div class="item">
+                        <img src="${imageSrc}" alt="${title}"> <!-- Use the direct thumbnail URL -->
+                        <div>
+                            <a href="${url}" target="_blank">${title}</a>
+                            <p><strong>Creator:</strong> ${creator}</p>
+                            <p><strong>Description:</strong> ${description}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById("content").innerHTML = content;
+        }
+
+        loadCSV();
+    </script>
+
+</body>
+</html>
